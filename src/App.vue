@@ -112,7 +112,8 @@ input {
 }
 
 </style> -->
-
+<!-- 
+//from cu validare
 <template>
   <form @submit.prevent="validateForm">
     <label for="name">Nume:</label>
@@ -163,4 +164,76 @@ export default
   },
 };
 </script>
-<style></style>
+<style></style> -->
+
+<template>
+  <div>
+    <input v-model="searchQuery" placeholder="Caută un produs..." />
+    <ProductList :products="filteredProducts" />
+    
+  </div>
+</template>
+
+<script>
+import ProductList from './components/ProductList.vue';
+
+export default {
+  components: { ProductList },
+  data() {
+    return {
+      searchQuery: '',
+      products: [
+        { id: 1, name: 'Laptop', price: 2500 },
+        { id: 2, name: 'Telefon', price: 1500 },
+        { id: 3, name: 'Tableta', price: 800 },
+        { id: 4, name: 'Căști', price: 200 },
+        { id: 5, name: 'Monitor', price: 1200 },
+      ],
+    };
+  },
+  computed: {
+    filteredProducts() {
+      return this.products.filter((p) =>
+        p.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
+  },
+};
+</script>
+<style>
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+h1 {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #f8f9fa;
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #e2e2e2;
+  transition: all 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-2px);
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+</style>
